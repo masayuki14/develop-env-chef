@@ -81,16 +81,16 @@ service 'iptables' do
   action [:disable, :stop]
 end
 
-#bash 'DEBIAN_FRONTEND=noninteractive' do
-#  user 'root'
-#  code 'DEBIAN_FRONTEND=noninteractive'
-#  notifies :install 'package[mysql-server-5.6]'
-#end
-#
-## mysql
-#package 'mysql-server-5.6' do
-#  action :noting
-#end
+# mysql
+bash 'DEBIAN_FRONTEND=noninteractive' do
+  user 'root'
+  code 'export DEBIAN_FRONTEND=noninteractive'
+  notifies :install, 'package[mysql-server-5.6]'
+end
+
+package 'mysql-server-5.6' do
+  action :nothing
+end
 #%w[mysql-server-5.6].each do |pkg|
 #  install pkg
 #end
