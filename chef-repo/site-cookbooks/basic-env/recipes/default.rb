@@ -106,6 +106,8 @@ end
 #  EOF
 #end
 
+install 'nodejs'
+
 # php
 #%w[php php-mbstring php-mysql php-pdo php-pear].each do |pkg|
 %w[php5].each do |pkg|
