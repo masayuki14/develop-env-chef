@@ -19,8 +19,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision :chef_solo do |chef|
-    #chef.cookbooks_path = './chef-repo/site-cookbooks'
-    chef.cookbooks_path = './cookbooks'
+    chef.cookbooks_path = './chef-repo/site-cookbooks'
     chef.json = {}
     chef.run_list = %w[
       recipe[basic-env]
