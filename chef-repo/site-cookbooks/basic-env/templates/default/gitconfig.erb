@@ -1,0 +1,26 @@
+[user]
+	name = Masayuki Morisaki
+	email = masayuki144@gmail.com
+[color]
+	ui = auto
+[core]
+	excludesfile = /Users/morisaki/.gitignore_global
+	whitespace = tab-in-indent
+	precomposeunicode = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[push]
+#	default = simple
+[alias]
+	st = status
+	df = diff
+	cm = commit
+	co = checkout
+	br = branch
+	svr = svn rebase
+	svc = svn dcommit
+
