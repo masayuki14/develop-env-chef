@@ -109,7 +109,16 @@ end
 #  EOF
 #end
 
-install 'nodejs'
+# node install & link
+%w[nodejs npm].each do |pkg|
+  install pkg
+end
+link '/usr/bin/node' do
+  to '/usr/bin/nodejs'
+  link_type :symbolic
+  action :create
+  not_if 'test -L /usr/bin/node'
+end
 
 # php
 #%w[php php-mbstring php-mysql php-pdo php-pear].each do |pkg|
