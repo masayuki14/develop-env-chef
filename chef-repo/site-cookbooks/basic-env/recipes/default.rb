@@ -20,7 +20,7 @@ bash 'apt-get_update' do
 end
 
 # vim, screen
-%w[git vim screen nkf fish].each do |pkg|
+%w[git vim screen nkf fish zip].each do |pkg|
   install pkg
 end
 
