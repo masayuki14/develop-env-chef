@@ -65,7 +65,10 @@ end
 execute 'a2ensite_develop-env' do
   action :nothing
   user     'root'
-  command  'a2ensite develop-env'
+  command <<-EOF
+    a2ensite develop-env
+    a2dissite 000-default
+  EOF
   notifies :restart, 'service[apache2]'
 end
 
@@ -139,7 +142,11 @@ end
 
 # deploy
 directory '/home/vagrant' do
-  mode 0705
+  mode 0755
+  action :create
+end
+directory '/home/vagrant/httpdocs' do
+  mode 0755
   action :create
 end
 
