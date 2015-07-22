@@ -24,12 +24,12 @@ end
   install pkg
 end
 
-%w[screenrc vimrc gitconfig].each do |rc|
-  template rc do
+%w[screenrc vimrc gitconfig gitignore_global].each do |dotfile|
+  template dotfile do
     owner 'vagrant'
     group 'vagrant'
     mode  0644
-    path  "/home/vagrant/.#{rc}"
+    path  "/home/vagrant/.#{dotfile}"
   end
 end
 
