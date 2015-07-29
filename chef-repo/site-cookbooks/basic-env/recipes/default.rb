@@ -93,6 +93,14 @@ service 'mysql' do
   action [ :enable, :start ]
 end
 
+template 'my.cnf' do
+  path     '/etc/mysql/my.cnf'
+  owner    'root'
+  group    'root'
+  mode     0644
+  notifies :restart, 'service[mysql]', :immediately
+end
+
 bash 'mysql-create-database' do
   code "mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS `#{node['mysql']['database']}` DEFAULT CHARACTER SET utf8;'"
   notifies :run, 'bash[mysql-create-user]'
