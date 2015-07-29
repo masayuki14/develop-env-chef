@@ -85,29 +85,27 @@ service 'iptables' do
 end
 
 # mysql
-bash 'DEBIAN_FRONTEND=noninteractive' do
-  user 'root'
-  code 'export DEBIAN_FRONTEND=noninteractive'
-  notifies :install, 'package[mysql-server-5.6]'
+package 'mysql-server-5.5' do
+  action :install
 end
 
-package 'mysql-server-5.6' do
+service 'mysql' do
+  action [ :enable, :start ]
+end
+
+bash 'mysql-create-database' do
+  code "mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS `#{node['mysql']['database']}` DEFAULT CHARACTER SET utf8;'"
+  notifies :run, 'bash[mysql-create-user]'
+  Chef::Log.info code
+end
+
+bash 'mysql-create-user' do
+  code <<-EOF
+    mysql -uroot -e "GRANT ALL PRIVILEGES ON #{node['mysql']['database']}.* TO #{node['mysql']['user']}@localhost IDENTIFIED BY '#{node['mysql']['password']}';"
+  EOF
   action :nothing
+  Chef::Log.info code
 end
-#%w[mysql-server-5.6].each do |pkg|
-#  install pkg
-#end
-
-#service 'mysqld' do
-#  action [ :enable, :start ]
-#end
-
-#bash 'mysql-create-user' do
-#  code <<-EOF
-#    mysql -uroot -e "CREATE DATABASE IF NOT EXISTS `#{node['mysql']['database']}` DEFAULT CHARACTER SET utf8;
-#    mysql -uroot -e "GRANT ALL PRIVILEGES ON #{node['mysql']['database']}.* TO #{node['mysql']['user']}@localhost IDENTIFIED BY '#{node['mysql']['password']}';
-#  EOF
-#end
 
 # node install & link
 %w[nodejs npm].each do |pkg|
