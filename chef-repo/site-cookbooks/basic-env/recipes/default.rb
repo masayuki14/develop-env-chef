@@ -161,6 +161,8 @@ directory '/home/vagrant' do
   action :create
 end
 directory '/home/vagrant/httpdocs' do
+  user 'vagrant'
+  group 'vagrant'
   mode 0755
   action :create
 end
