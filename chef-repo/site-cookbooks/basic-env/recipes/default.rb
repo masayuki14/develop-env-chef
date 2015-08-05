@@ -89,16 +89,16 @@ package 'mysql-server-5.5' do
   action :install
 end
 
-service 'mysql' do
-  action [ :enable, :start ]
-end
-
 template 'my.cnf' do
   path     '/etc/mysql/my.cnf'
   owner    'root'
   group    'root'
   mode     0644
   notifies :restart, 'service[mysql]', :immediately
+end
+
+service 'mysql' do
+  action [ :enable, :start ]
 end
 
 bash 'mysql-create-database' do
