@@ -85,8 +85,8 @@ service 'iptables' do
 end
 
 # mysql
-package 'mysql-server-5.5' do
-  action :install
+%w['mysql-server-5.5' 'libmysqld-dev'].each do |pkg|
+  install pkg
 end
 
 template 'my.cnf' do
